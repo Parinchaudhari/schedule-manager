@@ -5,11 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useAppContext } from '@/app/Contexts/AppContext';
 
 export default function Signup() {
     let [loginData, setloginData] = useState({ businessType: "", email: "", password: "", fName: "", lName: "", company: "", storeNo: 0 })
     let [error, setloginError] = useState({ businessType: false, email: false, password: false, fName: false, lName: false, company: false, storeNo: false })
-
+    let {isLoading,setisLoading}=useAppContext()
     const setEmail = (e) => {
         let { name, value } = e.target;
         console.log(value)
@@ -131,6 +132,7 @@ export default function Signup() {
         e.preventDefault()
         if (!error.fName || !error.lName || !error.email || !error.businessType || !error.storeNo || !error.company) {
             try {
+                setisLoading(true)
                 console.log("submitted")
                 let response = await axios.post("/api/user/signup", loginData)
                 console.log(response.data.message)
@@ -160,6 +162,9 @@ export default function Signup() {
             } catch (error) {
                 console.log("error occurend during sending data for signup", error)
                 
+            }
+            finally{
+                setisLoading(false)
             }
         }
     }
