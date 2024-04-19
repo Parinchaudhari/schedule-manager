@@ -21,8 +21,20 @@ const userSchema= new mongoose.Schema({
         type:String,
         required:[true,"company name is required"]
     },
-    role:{
+    businessType:{
         type:String,
-        required:[true,"role is required"]
+        required:[true,"businees type is required"]
+    },
+    storeNo:{
+        type:String,
+        required:false
+    },
+    role:{
+        type:Number,
+        required:[true,"role is required"],
+        default:1
     },
 }) 
+
+const user=mongoose.models.users || mongoose.model('users',userSchema)
+export default user

@@ -3,11 +3,12 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import axios from 'axios';
 import { Banner } from '@/app/components';
+import Link from 'next/link';
 
 export default function Login() {
 
-    let [loginData, setloginData] = useState({ email: "", password: "" })
-    let [error, setloginError] = useState({ email: false, password: false })
+    let [loginData, setloginData] = useState({ email: "", password: ""})
+    let [error, setloginError] = useState({ email: false, password: false})
 
     const setEmail = (e) => {
         let { name, value } = e.target;
@@ -116,6 +117,7 @@ export default function Login() {
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form className="space-y-6" onSubmit={tryLogin}>
+                        
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                             <div className="mt-2">
@@ -139,13 +141,13 @@ export default function Login() {
                         </div>
 
                         <div>
-                            <button type="submit" className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                            <button type="submit" className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log in</button>
                         </div>
                     </form>
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Don't have an account?
-                        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Create one here</a>
+                        <Link href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Create one here</Link>
                     </p>
                 </div>
             </div>
