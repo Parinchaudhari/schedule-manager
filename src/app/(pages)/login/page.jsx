@@ -4,12 +4,14 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { Banner } from '@/app/components';
 import Link from 'next/link';
+import { useAppContext } from '@/app/Contexts/AppContext';
+import toast from 'react-hot-toast';
 
 export default function Login() {
 
     let [loginData, setloginData] = useState({ email: "", password: ""})
     let [error, setloginError] = useState({ email: false, password: false})
-
+    let {setisLoading}=useAppContext()
     const setEmail = (e) => {
         let { name, value } = e.target;
         console.log(value)
@@ -98,13 +100,48 @@ export default function Login() {
     const tryLogin = async (e) => {
         e.preventDefault()
         try {
+            setisLoading(true)
             console.log(loginData)
             let response = await axios.post("/api/user/login", loginData)
+            if(response.data.loggedIn){
+                toast.success(response.data.message,
+                    {
+                        style: {
+                            borderRadius: '10px',
+                            background: '#333',
+                            color: '#fff',
+                        },
+                    }
+                );
+            }
+            else{
+                toast.error(response.data.message,
+                    {
+                        style: {
+                            borderRadius: '10px',
+                            background: '#333',
+                            color: '#fff',
+                        },
+                    }
+                );
+            }
+
             console.log(response)
         } catch (error) {
             console.log("error in occurend while login in", error)
+            toast.error(response.data.message,
+                {
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                }
+            );
         }
-
+        finally{
+            setisLoading(false)
+        }
     }
     return (
         <>
@@ -116,7 +153,7 @@ export default function Login() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" onSubmit={tryLogin}>
+                    <form className="space-y-6" method='POST' onSubmit={tryLogin}>
                         
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
