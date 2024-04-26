@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { user } from "@/app/models";
 import bcrypt from 'bcrypt'
 import  jwt  from "jsonwebtoken";
+import { getTokenData } from "@/app/helpers/getTokenData";
 
 Connect()
 export async function POST(request){
@@ -30,7 +31,7 @@ export async function POST(request){
         }
         let token=jwt.sign(tokenData,process.env.JWT_SECRET_KEY,{expiresIn:'4h'})
         let response=NextResponse.json({
-            message:`Welcome ${userPresent.fName} ${userPresent.lName}`,
+            message:`${userPresent.fName} ${userPresent.lName}`,
             loggedIn:true,
         },{
             status:200

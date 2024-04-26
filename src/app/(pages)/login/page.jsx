@@ -6,12 +6,14 @@ import { Banner } from '@/app/components';
 import Link from 'next/link';
 import { useAppContext } from '@/app/Contexts/AppContext';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
 
     let [loginData, setloginData] = useState({ email: "", password: ""})
     let [error, setloginError] = useState({ email: false, password: false})
-    let {setisLoading}=useAppContext()
+    let {setisLoading,setIsLoggedIn,LoggedIn,setfullName}=useAppContext()
+    const router =useRouter()
     const setEmail = (e) => {
         let { name, value } = e.target;
         console.log(value)
@@ -104,7 +106,7 @@ export default function Login() {
             console.log(loginData)
             let response = await axios.post("/api/user/login", loginData)
             if(response.data.loggedIn){
-                toast.success(response.data.message,
+                toast.success(`Welcome ${response.data.message}`,
                     {
                         style: {
                             borderRadius: '10px',
@@ -113,6 +115,9 @@ export default function Login() {
                         },
                     }
                 );
+                setIsLoggedIn(true)
+                setfullName(response.data.message)
+                router.push("/")
             }
             else{
                 toast.error(response.data.message,
@@ -129,7 +134,7 @@ export default function Login() {
             console.log(response)
         } catch (error) {
             console.log("error in occurend while login in", error)
-            toast.error(response.data.message,
+            toast.error(error.message,
                 {
                     style: {
                         borderRadius: '10px',
