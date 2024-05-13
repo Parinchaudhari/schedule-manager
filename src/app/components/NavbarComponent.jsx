@@ -51,7 +51,7 @@ export default function NavbarComponent() {
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link href="/" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</Link>
-                  {LoggedIn && <Link href="" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Manage</Link>}
+                  {LoggedIn && <Link href="/schedulemanager" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Manage</Link>}
                   {!LoggedIn &&<Link href="/login" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">login</Link>}
                 </div>
               </div>
@@ -103,7 +103,7 @@ export default function NavbarComponent() {
         <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
           <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             <Link href="/" className="block px-4 py-2 text-sm text-white" role="menuitem" tabIndex="-1" id="user-menu-item-0">Home</Link>
-            {LoggedIn &&<Link href="" className="block px-4 py-2 text-sm text-white" role="menuitem" tabIndex="-1" id="user-menu-item-1">Manage</Link>}
+            {LoggedIn &&<Link href="/schedulemanager" className="block px-4 py-2 text-sm text-white" role="menuitem" tabIndex="-1" id="user-menu-item-1">Manage</Link>}
             {
               !LoggedIn &&
             <Link href="/login" className="block px-4 py-2 text-sm text-white" role="menuitem" tabIndex="-1" id="user-menu-item-2">Login</Link>
